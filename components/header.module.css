@@ -1,0 +1,19 @@
+.header {
+  display: flex;
+  margin-block: 16px;
+}
+
+.nav > * + * {
+  margin-left: 24px;
+}
+
+.nav * {
+  text-decoration: none;
+  color: hsl(197deg 20% 48%);
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.nav *:hover {
+  text-decoration: underline;
+}

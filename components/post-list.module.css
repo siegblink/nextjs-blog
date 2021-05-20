@@ -1,0 +1,26 @@
+.list {
+  margin-top: 48px;
+  list-style: none;
+  padding-inline: 0;
+}
+
+.listItem {
+  padding: 24px;
+  border-radius: 8px;
+  display: grid;
+  box-shadow: 1px 1px 30px -13px rgb(0 0 0 / 31%);
+  -webkit-box-shadow: 1px 1px 30px -13px rgb(0 0 0 / 31%);
+  -moz-box-shadow: 1px 1px 30px -13px rgb(0 0 0 / 31%);
+}
+
+.listItem p {
+  margin-block: 0px;
+  color: hsl(197deg 7% 38%);
+}
+
+.link {
+  text-decoration: none;
+  font-size: 3rem;
+  font-weight: bold;
+  color: hsl(197deg 20% 48%);
+}
