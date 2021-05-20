@@ -1,0 +1,24 @@
+.backLink {
+  text-decoration: none;
+  color: hsl(197deg 7% 38%);
+}
+
+.backLink:hover {
+  text-decoration: underline;
+}
+
+.title {
+  font-size: 3rem;
+  margin-block: 0;
+  margin-top: 48px;
+  color: hsl(197deg 20% 48%);
+}
+
+.author {
+  color: hsl(197deg 20% 48%);
+}
+
+.content * {
+  line-height: 1.8;
+  color: hsl(197deg 18% 38%);
+}

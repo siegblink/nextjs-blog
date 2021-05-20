@@ -1,20 +1,26 @@
-import Head from 'next/Head'
-import Header from './Header'
+import { Fragment } from "react";
+import Head from "next/Head";
+import Header from "@/components/header";
+import classes from "./layout.module.css";
 
 export default function Layout(props) {
-  const { children, pageTitle, ...otherProps } = props
+  const { children, pageTitle } = props;
 
   return (
-    <>
+    <Fragment>
       <Head>
-        <meta name='viewport' content='width=device-width, initial-scale=1' />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>{pageTitle}</title>
       </Head>
-      <section className='layout'>
+
+      {/* Main content */}
+      <section className={classes.layout}>
         <Header />
-        <div className='content'>{children}</div>
+        <div id="blog-content">{children}</div>
       </section>
-      <footer>Built by me</footer>
-    </>
-  )
+
+      {/* Footer */}
+      <footer className={classes.footer}>Built with ❤️ by me</footer>
+    </Fragment>
+  );
 }

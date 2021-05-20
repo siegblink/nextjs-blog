@@ -1,0 +1,12 @@
+.title {
+  font-size: 3rem;
+  margin-block: 0;
+  margin-top: 48px;
+  color: hsl(197deg 20% 48%);
+}
+
+.description {
+  line-height: 1.8;
+  color: hsl(197deg 7% 38%);
+  margin-block: 0;
+}

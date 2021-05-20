@@ -1,67 +1,83 @@
-import Link from 'next/link'
-import matter from 'gray-matter'
-import ReactMarkdown from 'react-markdown'
-import Layout from '../../components/Layout'
+import Link from "next/link";
+import matter from "gray-matter";
+import ReactMarkdown from "react-markdown";
+import Layout from "@/components/layout";
+import classes from "./[postname].module.css";
 
 export default function BlogPost(props) {
-  const { siteTitle, frontmatter, markdownBody } = props
+  const { siteTitle, frontmatter, markdownBody } = props;
 
-  if (!frontmatter) return <></>
+  if (!frontmatter) return <></>;
 
   return (
     <Layout pageTitle={`${siteTitle} | ${frontmatter.title}`}>
-      <Link href='/'>
-        <a>Back to post list</a>
+      <Link href="/">
+        <a className={classes.backLink}>← Back to Post List</a>
       </Link>
 
       <article>
-        <h1>{frontmatter.title}</h1>
-        <p>By {frontmatter.author}</p>
-        <div>
-          <ReactMarkdown source={markdownBody} />
+        {/* Title */}
+        <h1 className={classes.title}>{frontmatter.title}</h1>
+
+        {/* Author */}
+        <p className={classes.author}>By: {frontmatter.author}</p>
+
+        {/* Blog content */}
+        <div className={classes.content}>
+          <ReactMarkdown>{markdownBody}</ReactMarkdown>
         </div>
       </article>
     </Layout>
-  )
+  );
 }
 
-export async function getStaticProps(props) {
-  const { ...ctx } = props
-  const { postname } = ctx.params
+export async function getStaticProps(context) {
+  const { postname } = context.params;
 
-  const content = await import(`../../posts/${postname}.md`)
-  const config = await import(`../../siteconfig.json`)
-  const data = matter(content.default)
+  // Get the markdown content.
+  const content = await import(`../../posts/${postname}.md`);
+
+  // Get the site configuration content.
+  const config = await import(`siteconfig.json`);
+
+  // Get the parsed markdown data.
+  const { data, content: markdownContent } = matter(content.default);
 
   return {
     props: {
       siteTitle: config.title,
-      frontmatter: data.data,
-      markdownBody: data.content,
+      frontmatter: data,
+      markdownBody: markdownContent,
     },
-  }
+  };
 }
 
 export async function getStaticPaths() {
-  function generateSlugs(context) {
-    const keys = context.keys()
+  // Get the slugs array data.
+  const blogSlugs = generateSlugs(
+    require.context("../../posts", true, /\.md$/)
+  );
 
-    const data = keys.map(function (key, index) {
-      let slug = key.replace(/^.*[\\\/]/, '').slice(0, -3)
-      return slug
-    })
-
-    return data
-  }
-
-  const blogSlugs = generateSlugs(require.context('../../posts', true, /\.md$/))
-
-  const paths = blogSlugs.map(function (slug) {
-    return `/post/${slug}`
-  })
+  // Generate an array of paths.
+  const paths = blogSlugs.map((slug) => {
+    return `/post/${slug}`;
+  });
 
   return {
     paths,
     fallback: false,
-  }
+  };
+}
+
+export function generateSlugs(context) {
+  // Get the keys array data.
+  const keys = context.keys();
+
+  // Generate slugs array data.
+  const data = keys.map((key) => {
+    let slug = key.replace(/^.*[\\\/]/, "").slice(0, -3);
+    return slug;
+  });
+
+  return data;
 }
